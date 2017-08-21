@@ -6,14 +6,20 @@ class login extends CI_Controller
      public function __construct()
      {
           parent::__construct();
-          $this->load->library('session');
-          $this->load->helper('form');
+          
+		  $this->load->helper('form');
           $this->load->helper('url');
           $this->load->helper('html');
+		  $this->load->helper('language');
           $this->load->database();
           $this->load->library('form_validation');
           //load the login model
           $this->load->model('login_model');
+		  $this->load->library('session');
+		  $user_lang = $this->session->userdata('site_lang');		 
+		  $this->config->set_item('language', $user_lang );	
+          //$this->lang->is_loaded = array();
+		  $this->lang->load('login', $user_lang);
      }
 
 	 public function logout()
@@ -29,6 +35,8 @@ class login extends CI_Controller
 
      public function index()
      {
+		 //echo "lang is : ".$this->session->userdata('site_lang');
+		 
 		 if($this->session->userdata('username'))
 			 redirect('welcome');
           //get the posted values

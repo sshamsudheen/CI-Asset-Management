@@ -6,7 +6,8 @@ class users extends CI_Controller
      public function __construct()
      {
           parent::__construct();
-          $this->load->library('session');
+		  $this->load->library('session');
+		  
           $this->load->helper('form');
           $this->load->helper('url');
           $this->load->helper('html');
@@ -17,10 +18,16 @@ class users extends CI_Controller
           $this->load->model('user_model');
 		  if(!$this->session->userdata('username'))
 			 redirect('login');
+		  $user_lang = $this->session->userdata('site_lang');		  
+		  $this->config->set_item('language', $user_lang );		  
+		  echo $this->config->item('language');
+		  
+		  
      }
 
      public function index()
      {
+		 echo "lang is : ".$this->session->userdata('site_lang');
 		/**************** pagination starts ****************/
 		$config = array();
         $config["base_url"] = base_url() . "users/index/";

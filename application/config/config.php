@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://localhost/CI-Asset-Management/';
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +71,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= '';
 
 /*
 |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 
 
 /*

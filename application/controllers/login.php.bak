@@ -16,8 +16,23 @@ class login extends CI_Controller
           $this->load->model('login_model');
      }
 
+	 public function logout()
+     {
+		 $sessiondata = array(
+                              'username' => '',
+                              'loginuser' => ''
+                         );
+		$this->session->unset_userdata($sessiondata);
+		redirect('welcome');
+	 }
+
+
      public function index()
      {
+		 echo "lang is : ".$this->session->userdata('site_lang');
+		 echo 'ssss'.$this->config->item('site_lang');
+		 if($this->session->userdata('username'))
+			 redirect('welcome');
           //get the posted values
           $username = $this->input->post("txt_username");
           $password = $this->input->post("txt_password");
@@ -25,11 +40,14 @@ class login extends CI_Controller
           //set validations
           $this->form_validation->set_rules("txt_username", "Username", "trim|required");
           $this->form_validation->set_rules("txt_password", "Password", "trim|required");
+		//print_r($this->session->all_userdata());
 
           if ($this->form_validation->run() == FALSE)
           {
                //validation fails
+			   $this->load->view('header');
                $this->load->view('login/login_view');
+			    $this->load->view('footer');
           }
           else
           {
@@ -46,14 +64,14 @@ class login extends CI_Controller
                               'loginuser' => TRUE
                          );
                          $this->session->set_userdata($sessiondata);
-						 echo "=-=-=-";
-                         //redirect("");
+						 //echo "=-=-=-";
+                         redirect("welcome");
                     }
                     else
                     {
-						//echo "=-=-=-=-";
+						
                          $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Invalid username and password!</div>');
-                         redirect('login/index');
+                         redirect('login');
                     }
                }
                else
